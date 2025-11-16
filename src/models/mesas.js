@@ -4,5 +4,5 @@ const mesasSchema = new Schema({
     numero: {type: Number, required: true}
 })
 
-const mesas = model('Pratos', mesasSchemaSchema)
+const mesas = model('Mesas', mesasSchema)
 export {mesas}
