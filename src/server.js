@@ -1,33 +1,22 @@
 import express from "express"
-import { Database } from "../databases.js"
 import mongoose from "mongoose"
+import { Servicos } from "./models/servicos"
+import { Clientes } from "./models/clientes"
+
 const app = express()
 app.use(express.json())
 
-const database = new Database
+app.use("/servicos", servicosRouter)
 
-app.get('/', (req, res) => {
-    res.send("Voce esta na pagina inicial")
+app.get("/users/:id/:page", (req, res) =>{
+    const {id} = req.params
+    res.end(`Buscar de usuários com id ${id}`)
 })
 
-app.get('/user', (req, res) => {
-    const data = database.select("usuario")
-    res.json(data)
-})
-
-app.post('/user', (req, res) => {
-    const {nome, idade, email} = req.body
-    if (nome, idade, email){
-        database.insert("usuario", {nome, idade, email})
-        return res.status(201).send("Usuário criado")
-    }
-    return res.status(400).send("Informações inválidas")
-})
-
-mongoose.connect("mongodb://localhost:27017/")
+mongoose.connect("mongodb://localhost:27017/trabalho")
     .then(() => console.log("Conectado ao MongoDB"))
     .catch((err) => console.log("Erro ao conectar no MongoDB"))
 
 app.listen(3333, () => {
-    console.log("rodou parça")
+    console.log("Servidor rodando na porta em http://localhost:3333")
 })
