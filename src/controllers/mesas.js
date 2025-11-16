@@ -30,6 +30,23 @@ const criarMesa = (req, res) =>{
     })
 }
 
+const atualizarMesa = async (req, res) =>{
+    const {id} = req.params
+    const {numero} = req.body
+    const response = await mesas.findByIdAndUpdate(id, req.body)
+    if (response){
+        res.json({
+            erro: false,
+            message: "Alteração feita"
+        })
+    }else{
+         res.json({
+            erro: false,
+            message: "Alteração não foi feita"
+        })
+    }
+}
+
 const deletarMesa = async (req, res) =>{
     const {id} = req.params
     const {numero} = req.body
@@ -46,4 +63,4 @@ const deletarMesa = async (req, res) =>{
         })
     }
 }
-export {buscarMesa, criarMesa, deletarMesa}
+export {buscarMesa, criarMesa, deletarMesa, atualizarMesa}

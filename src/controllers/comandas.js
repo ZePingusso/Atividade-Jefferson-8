@@ -29,6 +29,23 @@ const criarComanda = (req, res) => {
     )
 }
 
+const atualizarComanda = async (req, res) =>{
+    const {id} = req.params
+    const {numero, preco, prato} = req.body
+    const response = await Comandas.findByIdAndUpdate(id, req.body)
+    if (response){
+        res.json({
+            erro: false,
+            message: "Alteração feita"
+        })
+    }else{
+         res.json({
+            erro: false,
+            message: "Alteração não foi feita"
+        })
+    }
+}
+
 const deletarComanda = async (req, res) =>{
     const {id} = req.params
     const {numero, mesa, prato} = req.body
@@ -45,4 +62,4 @@ const deletarComanda = async (req, res) =>{
         })
     }
 }
-export {buscarComanda, criarComanda, deletarComanda}
+export {buscarComanda, criarComanda, deletarComanda, atualizarComanda}
