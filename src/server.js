@@ -1,5 +1,6 @@
 import express from "express"
 import { Database } from "../databases.js"
+import mongoose from "mongoose"
 const app = express()
 app.use(express.json())
 
@@ -22,6 +23,10 @@ app.post('/user', (req, res) => {
     }
     return res.status(400).send("Informações inválidas")
 })
+
+mongoose.connect("mongodb://localhost:27017/")
+    .then(() => console.log("Conectado ao MongoDB"))
+    .catch((err) => console.log("Erro ao conectar no MongoDB"))
 
 app.listen(3333, () => {
     console.log("rodou parça")
