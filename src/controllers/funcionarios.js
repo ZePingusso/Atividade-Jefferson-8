@@ -1,20 +1,20 @@
-import { Comandas } from "../models/comanda.js";
-class ComandaControllers{
-    buscarComanda = async (req, res) =>{
-        const response = await Comandas.find()
+import { Funcionarios } from "../models/funcionarios.js";
+class FuncionarioControllers{
+    buscarFuncionario = async (req, res) =>{
+        const response = await Funcionarios.find()
         res.json(response)
     }
 
-    criarComanda = (req, res) => {
-        const {numero, mesa, prato} = req.body
-        if (!numero, !mesa){
+    criarfuncionario = (req, res) => {
+        const {nome, idade, cargo} = req.body
+        if (!nome || !idade || !cargo){
             return res.status(422).json({
                 erro: true,
                 message: "Dados inválidos"
             })
         }
-        const comanda = new Comandas({numero, mesa, prato})
-        comanda.save().then(
+        const funcionario = new Funcionarios({nome, idade, cargo})
+        funcionario.save().then(
             () => res.status(201).json({
                 erro: false,
                 message: "Criado com sucesso"
@@ -29,10 +29,10 @@ class ComandaControllers{
         )
     }
 
-    atualizarComanda = async (req, res) =>{
+    atualizarFuncionario = async (req, res) =>{
         const {id} = req.params
-        const {numero, preco, prato} = req.body
-        const response = await Comandas.findByIdAndUpdate(id, req.body)
+        const {nome, idade, cargo} = req.body
+        const response = await Funcionarios.findByIdAndUpdate(id, req.body)
         if (response){
             res.json({
                 erro: false,
@@ -46,10 +46,10 @@ class ComandaControllers{
         }
     }
 
-    deletarComanda = async (req, res) =>{
+    deletarFuncionario = async (req, res) =>{
         const {id} = req.params
-        const {numero, mesa, prato} = req.body
-        const response = await Comandas.findByIdAndDelete(id, req.body)
+        const {nome, idade, cargo} = req.body
+        const response = await Funcionarios.findByIdAndDelete(id, req.body)
         if (response){
             res.json({
                 erro: false,
@@ -62,11 +62,11 @@ class ComandaControllers{
             })
         }
     }
-    buscarComandaPorId = async (req, res) =>{
+    buscarFuncionarioPorId = async (req, res) =>{
         const {id} = req.params
-        const response = await Comandas.findById(id)
+        const response = await Funcionarios.findById(id)
         res.json(response)
     }    
 }
 
-export default new ComandaControllers()
+export default new FuncionarioControllers()

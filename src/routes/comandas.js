@@ -1,10 +1,11 @@
 import { Router } from "express"
-import { buscarComanda, criarComanda, deletarComanda, atualizarComanda } from "../controllers/comandas.js"
+import comandinhas from "../controllers/comandas.js"
 const comandaRouter = Router()
 
-comandaRouter.get("/", buscarComanda)
-comandaRouter.post("/", criarComanda)
-comandaRouter.delete("/:id", deletarComanda)
-comandaRouter.put("/:id", atualizarComanda)
+comandaRouter.get("/", comandinhas.buscarComanda)
+comandaRouter.post("/", comandinhas.criarComanda)
+comandaRouter.delete("/:id", comandinhas.deletarComanda)
+comandaRouter.put("/:id", comandinhas.atualizarComanda)
+comandaRouter.get("/:id", comandinhas.buscarComandaPorId)
 
 export {comandaRouter}

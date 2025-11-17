@@ -1,27 +1,27 @@
-import { mesas } from "../models/mesas.js";
+import { Suco } from "../models/sucos.js"
 
-class MesaController{
-    buscarMesa = async (req, res) =>{
-        const response = await mesas.find()
+class SucoController{
+    buscarSucos = async (req, res) =>{
+        const response = await Suco.find()
         res.json(response)
     }
-    criarMesa = (req, res) =>{
-        const {numero} = req.body
-        if (!numero){
+    addSuco = (req, res) =>{
+        const {sabor, preco} = req.body
+        if (!sabor || !preco){
             res.status(422).json({
                 erro: true,
                 message: "Dados inválidos" 
             })
             return
         }
-        const mesa = new mesas({
-            numero
+        const suco = new Suco({
+            sabor, preco
         })
-        mesa.save().then(
+        suco.save().then(
             () => res.status(201).json({
                 erro: false,
-                message: "Mesa criada com sucesso",
-                mesa: mesa
+                message: "Suco criado com sucesso",
+                suco : suco
             })).catch(err =>{
             res.status(422).json({
                 erro: true,
@@ -29,10 +29,15 @@ class MesaController{
             })        
         })
     }
-    atualizarMesa = async (req, res) =>{
+    buscarSucosPorId = async (req, res) =>{
         const {id} = req.params
-        const {numero} = req.body
-        const response = await mesas.findByIdAndUpdate(id, req.body)
+        const response = await Suco.findById(id)
+        res.json(response)
+    }
+    atualizarSuco = async (req, res) =>{
+        const {id} = req.params
+        const {sabor, preco} = req.body
+        const response = await Suco.findByIdAndUpdate(id, req.body)
         if (response){
             res.json({
                 erro: false,
@@ -45,10 +50,10 @@ class MesaController{
             })
         }
     }
-    deletarMesa = async (req, res) =>{
+    deletarSuco = async (req, res) =>{
         const {id} = req.params
-        const {numero} = req.body
-        const response = await mesas.findByIdAndDelete(id, req.body)
+        const {sabor, preco} = req.body
+        const response = await Suco.findByIdAndDelete(id, req.body)
         if (response){
             res.json({
                 erro: false,
@@ -61,11 +66,5 @@ class MesaController{
             })
         }
     }
-    buscarMesaPorId = async (req, res) =>{
-        const {id} = req.params
-        const response = await mesas.findById(id)
-        res.json(response)
-    }
 }
-
-export default new MesaController()
+export default new SucoController()

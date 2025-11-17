@@ -1,10 +1,11 @@
 import { Router } from "express";
-import { buscarMesa, criarMesa, deletarMesa, atualizarMesa } from "../controllers/mesas.js";
+import mesinhas from "../controllers/mesas.js";
 const mesasRouter = Router()
 
-mesasRouter.get("/", buscarMesa)
-mesasRouter.post("/", criarMesa)
-mesasRouter.delete("/:id", deletarMesa)
-mesasRouter.put("/:id", atualizarMesa)
+mesasRouter.get("/", mesinhas.buscarMesa)
+mesasRouter.post("/", mesinhas.criarMesa)
+mesasRouter.delete("/:id", mesinhas.deletarMesa)
+mesasRouter.put("/:id", mesinhas.atualizarMesa)
+mesasRouter.get("/:id", mesinhas.buscarMesaPorId)
 
 export {mesasRouter}
